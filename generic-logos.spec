@@ -1,7 +1,7 @@
 Name: generic-logos
 Summary: Icons and pictures
 Version: 8.0.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Base
 Source0: generic-logos-%{version}.tar.bz2
 License: GPLv2
@@ -50,13 +50,6 @@ for i in gnome-splash/* ; do
   install -m 644 $i $RPM_BUILD_ROOT%{_datadir}/pixmaps/splash
 done
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/apps/ksplash/Themes/FedoraInfinity
-
-for i in kde-splash/FedoraInfinity/* ; do
-  install -m 644 $i $RPM_BUILD_ROOT%{_datadir}/apps/ksplash/Themes/FedoraInfinity
-done
-
-
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/pixmaps
 for i in pixmaps/* ; do
   install -m 644 $i $RPM_BUILD_ROOT%{_datadir}/pixmaps
@@ -71,7 +64,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-, root, root)
 %doc COPYING
 %{_datadir}/firstboot/*
-%{_datadir}/apps/ksplash/Themes/*
 %{_datadir}/rhgb/*
 %{_datadir}/anaconda/pixmaps/*
 %{_datadir}/pixmaps/*
@@ -81,6 +73,9 @@ rm -rf $RPM_BUILD_ROOT
 # end i386 bits
 
 %changelog
+* Thu Mar 27 2008 Kevin Kofler <Kevin@tigcc.ticalc.org> - 8.0.2-2
+- Don't ship Infinity splash screen for KDE 3
+
 * Mon Oct 29 2007 Bill Nottingham <notting@redhat.com> - 8.0.2-1
 - Add Infinity splash screen for KDE
 
