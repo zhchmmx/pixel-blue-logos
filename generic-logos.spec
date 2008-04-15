@@ -1,7 +1,7 @@
 Name: generic-logos
 Summary: Icons and pictures
-Version: 8.0.2
-Release: 2%{?dist}
+Version: 9.0.0
+Release: 1%{?dist}
 Group: System Environment/Base
 Source0: generic-logos-%{version}.tar.bz2
 License: GPLv2
@@ -73,9 +73,10 @@ rm -rf $RPM_BUILD_ROOT
 # end i386 bits
 
 %changelog
-* Thu Mar 27 2008 Kevin Kofler <Kevin@tigcc.ticalc.org> - 8.0.2-2
-- Don't ship Infinity splash screen for KDE 3
-
+* Tue Apr 15 2008 Bill Nottingham <notting@redhat.com> - 9.0.0-1
+- updates for current fedora-logos (much thanks to <duffy@redhat.com>)
+- remove KDE Infinity splash
+ 
 * Mon Oct 29 2007 Bill Nottingham <notting@redhat.com> - 8.0.2-1
 - Add Infinity splash screen for KDE
 
