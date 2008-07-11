@@ -1,6 +1,6 @@
 Name: generic-logos
 Summary: Icons and pictures
-Version: 9.0.0
+Version: 9.99.0
 Release: 1%{?dist}
 Group: System Environment/Base
 Source0: generic-logos-%{version}.tar.bz2
@@ -73,6 +73,9 @@ rm -rf $RPM_BUILD_ROOT
 # end i386 bits
 
 %changelog
+* Fri Jul 11 2008 Bill Nottingham <notting@redhat.com> - 9.99.0-1
+- add a system logo for plymouth's spinfinity plugin
+
 * Tue Apr 15 2008 Bill Nottingham <notting@redhat.com> - 9.0.0-1
 - updates for current fedora-logos (much thanks to <duffy@redhat.com>)
 - remove KDE Infinity splash
