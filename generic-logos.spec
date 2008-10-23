@@ -1,6 +1,6 @@
 Name: generic-logos
 Summary: Icons and pictures
-Version: 9.99.0
+Version: 10.0.0
 Release: 1%{?dist}
 Group: System Environment/Base
 Source0: generic-logos-%{version}.tar.bz2
@@ -40,11 +40,6 @@ for i in firstboot/* ; do
   install -m 644 $i $RPM_BUILD_ROOT%{_datadir}/firstboot/pixmaps
 done
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/rhgb
-for i in rhgb/* ; do
-  install -m 644 $i $RPM_BUILD_ROOT%{_datadir}/rhgb
-done
-
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/pixmaps/splash
 for i in gnome-splash/* ; do
   install -m 644 $i $RPM_BUILD_ROOT%{_datadir}/pixmaps/splash
@@ -64,7 +59,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-, root, root)
 %doc COPYING
 %{_datadir}/firstboot/*
-%{_datadir}/rhgb/*
 %{_datadir}/anaconda/pixmaps/*
 %{_datadir}/pixmaps/*
 /usr/lib/anaconda-runtime/*.jpg
@@ -73,6 +67,9 @@ rm -rf $RPM_BUILD_ROOT
 # end i386 bits
 
 %changelog
+* Thu Oct 23 2008 Bill Nottingham <notting@redhat.com> - 10.0.0-1
+- update for current fedora-logos, with Solar theme
+
 * Fri Jul 11 2008 Bill Nottingham <notting@redhat.com> - 9.99.0-1
 - add a system logo for plymouth's spinfinity plugin
 
