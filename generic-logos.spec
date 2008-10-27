@@ -1,7 +1,7 @@
 Name: generic-logos
 Summary: Icons and pictures
 Version: 10.0.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Group: System Environment/Base
 Source0: generic-logos-%{version}.tar.bz2
 Source1: SolarComet-kde.png
@@ -87,6 +87,9 @@ rm -rf $RPM_BUILD_ROOT
 # end i386 bits
 
 %changelog
+* Mon Oct 27 2008 Jaroslav Reznik <jreznik@redhat.com> - 10.0.0-3
+- Solar Comet generic splash logo redesign
+
 * Sun Oct 26 2008 Kevin Kofler <Kevin@tigcc.ticalc.org> - 10.0.0-2
 - Add (current version of) KDE logo for SolarComet KSplash theme
 
