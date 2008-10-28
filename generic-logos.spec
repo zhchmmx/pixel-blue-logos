@@ -1,11 +1,10 @@
 Name: generic-logos
 Summary: Icons and pictures
-Version: 10.0.0
-Release: 3%{?dist}
+Version: 10.0.1
+Release: 1%{?dist}
 Group: System Environment/Base
 Source0: generic-logos-%{version}.tar.bz2
-Source1: SolarComet-kde.png
-License: GPLv2
+License: GPLv2 and LGPL
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Obsoletes: redhat-logos
@@ -17,6 +16,7 @@ Conflicts: anaconda-images <= 10
 Conflicts: redhat-artwork <= 5.0.5
 # For _kde4_appsdir macro:
 BuildRequires: kde-filesystem
+
 
 %description
 The generic-logos package contains various image files which can be
@@ -35,41 +35,29 @@ rm -rf $RPM_BUILD_ROOT
 
 # should be ifarch i386
 mkdir -p $RPM_BUILD_ROOT/boot/grub
-install -m 644 bootloader/grub-splash.xpm.gz $RPM_BUILD_ROOT/boot/grub/splash.xpm.gz
+install -p -m 644 bootloader/grub-splash.xpm.gz $RPM_BUILD_ROOT/boot/grub/splash.xpm.gz
 # end i386 bits
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/firstboot/pixmaps
 for i in firstboot/* ; do
-  install -m 644 $i $RPM_BUILD_ROOT%{_datadir}/firstboot/pixmaps
+  install -p -m 644 $i $RPM_BUILD_ROOT%{_datadir}/firstboot/pixmaps
 done
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/pixmaps/splash
 for i in gnome-splash/* ; do
-  install -m 644 $i $RPM_BUILD_ROOT%{_datadir}/pixmaps/splash
+  install -p -m 644 $i $RPM_BUILD_ROOT%{_datadir}/pixmaps/splash
 done
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/pixmaps
 for i in pixmaps/* ; do
-  install -m 644 $i $RPM_BUILD_ROOT%{_datadir}/pixmaps
+  install -p -m 644 $i $RPM_BUILD_ROOT%{_datadir}/pixmaps
 done
 
-(cd anaconda; make DESTDIR=$RPM_BUILD_ROOT install)
-
-# KDE logo for KDE splash screen
-cat >COPYING-kde-logo <<EOF
-From http://wiki.kde.org/tiki-index.php?page=KDE+Logo:
-Trademark License
-Copying of the KDE Logo is subject to the LGPL copyright license.
-Trading and branding with the KDE Logo is subject to our trademark licence:
-1. The KDE logo can be used freely as long as it is not used to refer to
-   products other than KDE itself.
-2. There is no formal procedure for using the KDE logo as long as you stay
-   within the above guideline for usage.
-3. Whilst not required you should acknowledge the KDE e.V.s rights by mentioning
-   "KDE, K Desktop Environment and the KDE Logo are trademarks of KDE e.V."
-EOF
 mkdir -p $RPM_BUILD_ROOT%{_kde4_appsdir}/ksplash/Themes/SolarComet/1280x1024
-install -p -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_kde4_appsdir}/ksplash/Themes/SolarComet/1280x1024/logo.png
+install -p -m 644 ksplash/SolarComet-kde.png $RPM_BUILD_ROOT%{_kde4_appsdir}/ksplash/Themes/SolarComet/1280x1024/logo.png
+
+
+(cd anaconda; make DESTDIR=$RPM_BUILD_ROOT install)
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -80,13 +68,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/firstboot/*
 %{_datadir}/anaconda/pixmaps/*
 %{_datadir}/pixmaps/*
-%{_kde4_appsdir}/ksplash/Themes/SolarComet/1280x1024/logo.png
 /usr/lib/anaconda-runtime/*.jpg
+%{_kde4_appsdir}/ksplash/Themes/SolarComet/1280x1024/logo.png
 # should be ifarch i386
 /boot/grub/splash.xpm.gz
 # end i386 bits
 
 %changelog
+* Tue Oct 28 2008 Bill Nottingham <notting@redhat.com> - 10.0.1-1
+- incorporate KDE logo into upstream source distribution
+- fix system-logo-white.png for compiz bleeding (#468258)
+
 * Mon Oct 27 2008 Jaroslav Reznik <jreznik@redhat.com> - 10.0.0-3
 - Solar Comet generic splash logo redesign
 
