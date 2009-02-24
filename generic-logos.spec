@@ -1,7 +1,7 @@
 Name: generic-logos
 Summary: Icons and pictures
 Version: 10.0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Base
 Source0: generic-logos-%{version}.tar.bz2
 License: GPLv2 and LGPL
@@ -75,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT
 # end i386 bits
 
 %changelog
+* Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 10.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
+
 * Tue Oct 28 2008 Bill Nottingham <notting@redhat.com> - 10.0.1-1
 - incorporate KDE logo into upstream source distribution
 - fix system-logo-white.png for compiz bleeding (#468258)
