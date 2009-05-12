@@ -1,7 +1,7 @@
 Name: generic-logos
 Summary: Icons and pictures
-Version: 10.0.1
-Release: 2%{?dist}
+Version: 11.0.1
+Release: 1%{?dist}
 Group: System Environment/Base
 Source0: generic-logos-%{version}.tar.bz2
 License: GPLv2 and LGPL
@@ -35,12 +35,12 @@ rm -rf $RPM_BUILD_ROOT
 
 # should be ifarch i386
 mkdir -p $RPM_BUILD_ROOT/boot/grub
-install -p -m 644 bootloader/grub-splash.xpm.gz $RPM_BUILD_ROOT/boot/grub/splash.xpm.gz
+install -p -m 644 bootloader/splash.xpm.gz $RPM_BUILD_ROOT/boot/grub/splash.xpm.gz
 # end i386 bits
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/firstboot/pixmaps
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/firstboot/themes/generic
 for i in firstboot/* ; do
-  install -p -m 644 $i $RPM_BUILD_ROOT%{_datadir}/firstboot/pixmaps
+  install -p -m 644 $i $RPM_BUILD_ROOT%{_datadir}/firstboot/themes/generic
 done
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/pixmaps/splash
@@ -53,9 +53,13 @@ for i in pixmaps/* ; do
   install -p -m 644 $i $RPM_BUILD_ROOT%{_datadir}/pixmaps
 done
 
-mkdir -p $RPM_BUILD_ROOT%{_kde4_appsdir}/ksplash/Themes/SolarComet/1280x1024
-install -p -m 644 ksplash/SolarComet-kde.png $RPM_BUILD_ROOT%{_kde4_appsdir}/ksplash/Themes/SolarComet/1280x1024/logo.png
+mkdir -p $RPM_BUILD_ROOT%{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536
+install -p -m 644 ksplash/SolarComet-kde.png $RPM_BUILD_ROOT%{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536/logo.png
 
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/plymouth/themes/charge/
+for i in plymouth/charge/* ; do
+    install -p -m 644 $i $RPM_BUILD_ROOT%{_datadir}/plymouth/themes/charge/
+done
 
 (cd anaconda; make DESTDIR=$RPM_BUILD_ROOT install)
 
@@ -65,18 +69,25 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-, root, root)
 %doc COPYING COPYING-kde-logo
-%{_datadir}/firstboot/*
+%{_datadir}/firstboot/themes/*
 %{_datadir}/anaconda/pixmaps/*
 %{_datadir}/pixmaps/*
+%{_datadir}/plymouth/themes/charge/*
 /usr/lib/anaconda-runtime/*.jpg
-%{_kde4_appsdir}/ksplash/Themes/SolarComet/1280x1024/logo.png
+%{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536/logo.png
 # should be ifarch i386
 /boot/grub/splash.xpm.gz
 # end i386 bits
 
 %changelog
-* Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 10.0.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
+* Tue May 12 2009 Bill Nottingham <notting@redhat.com> - 11.0.1-1
+- Add new plymouth artwork (#500239)
+
+* Wed Apr 22 2009 Bill Nottingham <notting@redhat.com> - 11.0.0-1
+- updates for Fedora 11
+
+* Wed Dec  3 2008 Bill Nottingham <notting@redhat.com> - 10.0.2-1
+- fix syslinux splash (accidentally branded)
 
 * Tue Oct 28 2008 Bill Nottingham <notting@redhat.com> - 10.0.1-1
 - incorporate KDE logo into upstream source distribution
