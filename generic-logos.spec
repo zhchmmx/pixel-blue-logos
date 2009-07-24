@@ -1,7 +1,7 @@
 Name: generic-logos
 Summary: Icons and pictures
 Version: 11.0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Base
 Source0: generic-logos-%{version}.tar.bz2
 License: GPLv2 and LGPL
@@ -80,6 +80,9 @@ rm -rf $RPM_BUILD_ROOT
 # end i386 bits
 
 %changelog
+* Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 11.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
+
 * Tue May 12 2009 Bill Nottingham <notting@redhat.com> - 11.0.1-1
 - Add new plymouth artwork (#500239)
 
