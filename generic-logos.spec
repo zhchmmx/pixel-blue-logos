@@ -1,6 +1,6 @@
 Name: generic-logos
 Summary: Icons and pictures
-Version: 12.1
+Version: 12.2
 Release: 1%{?dist}
 Group: System Environment/Base
 Source0: generic-logos-%{version}.tar.bz2
@@ -87,6 +87,9 @@ rm -rf $RPM_BUILD_ROOT
 # end i386 bits
 
 %changelog
+* Fri Oct 30 2009 Bill Nottingham <notting@redhat.com> - 12.2-1
+- tweak anaconda.png/svg to match rest of icons (<duffy@redhat.com>)
+
 * Fri Oct 30 2009 Tom "spot" Callaway <tcallawa@redhat.com> - 12.1-1
 - 12.1 (add generic versions of anaconda.png/svg)
 
