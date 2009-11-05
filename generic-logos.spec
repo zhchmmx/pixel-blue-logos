@@ -1,7 +1,7 @@
 Name: generic-logos
 Summary: Icons and pictures
 Version: 12.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: System Environment/Base
 Source0: generic-logos-%{version}.tar.bz2
 License: GPLv2 and LGPL
@@ -53,6 +53,8 @@ for i in pixmaps/* ; do
   install -p -m 644 $i $RPM_BUILD_ROOT%{_datadir}/pixmaps
 done
 
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/kde-settings/kde-profile/default/share/icons/Fedora-KDE/48x48/apps/
+install -p -m 644 icons/Fedora/48x48/apps/* $RPM_BUILD_ROOT%{_datadir}/kde-settings/kde-profile/default/share/icons/Fedora-KDE/48x48/apps/
 mkdir -p $RPM_BUILD_ROOT%{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536
 install -p -m 644 ksplash/SolarComet-kde.png $RPM_BUILD_ROOT%{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536/logo.png
 
@@ -82,11 +84,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/plymouth/themes/charge/*
 /usr/lib/anaconda-runtime/*.jpg
 %{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536/logo.png
+%{_datadir}/kde-settings/kde-profile/default/share/icons/Fedora-KDE/*/apps/*
 # should be ifarch i386
 /boot/grub/splash.xpm.gz
 # end i386 bits
 
 %changelog
+* Wed Nov  4 2009 Tom "spot" Callaway <tcallawa@redhat.com> - 12.2-2
+- kde icon installation
+
 * Fri Oct 30 2009 Bill Nottingham <notting@redhat.com> - 12.2-1
 - tweak anaconda.png/svg to match rest of icons (<duffy@redhat.com>)
 
