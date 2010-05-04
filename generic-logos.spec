@@ -1,5 +1,5 @@
 Name:       generic-logos
-Version:    13.0
+Version:    13.0.1
 Release:    1%{?dist}
 Summary:    Icons and pictures
 
@@ -96,6 +96,9 @@ rm -rf %{buildroot}
 # end i386 bits
 
 %changelog
+* Tue May  4 2010 Bill Nottingham <notting@redhat.com> - 13.0.1-1
+- Add logos to make firstboot work
+
 * Mon May  3 2010 Bill Nottingham <notting@redhat.com> - 13.0-1
 - Update for Fedora 13
 
