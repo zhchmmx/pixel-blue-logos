@@ -1,6 +1,6 @@
 Name:       generic-logos
 Version:    13.0.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Icons and pictures
 
 Group:      System Environment/Base
@@ -16,10 +16,9 @@ Provides:   redhat-logos = %{version}-%{release}
 Provides:   system-logos = %{version}-%{release}
 
 Conflicts:  fedora-logos
-Conflicts:  kdebase <= 3.1.5
 Conflicts:  anaconda-images <= 10
 Conflicts:  redhat-artwork <= 5.0.5
-# For _kde4_appsdir macro:
+# For _kde4_* macros:
 BuildRequires: kde-filesystem
 
 
@@ -59,8 +58,8 @@ for i in pixmaps/* ; do
   install -p -m 644 $i %{buildroot}%{_datadir}/pixmaps
 done
 
-mkdir -p %{buildroot}%{_datadir}/kde-settings/kde-profile/default/share/icons/Fedora-KDE/48x48/apps/
-install -p -m 644 icons/Fedora/48x48/apps/* %{buildroot}%{_datadir}/kde-settings/kde-profile/default/share/icons/Fedora-KDE/48x48/apps/
+mkdir -p %{buildroot}%{_kde4_iconsdir}/Fedora-KDE/48x48/apps/
+install -p -m 644 icons/Fedora/48x48/apps/* %{buildroot}%{_kde4_iconsdir}/Fedora-KDE/48x48/apps/
 mkdir -p %{buildroot}%{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536
 install -p -m 644 ksplash/SolarComet-kde.png %{buildroot}%{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536/logo.png
 
@@ -77,6 +76,34 @@ install	-p -m 644 icons/Fedora/scalable/apps/* %{buildroot}%{_datadir}/icons/Fed
 
 (cd anaconda; make DESTDIR=%{buildroot} install)
 
+%post
+touch --no-create %{_datadir}/icons/Fedora || :
+touch --no-create %{_kde4_iconsdir}/Fedora-KDE ||:
+
+%postun
+if [ $1 -eq 0 ] ; then
+touch --no-create %{_datadir}/icons/Fedora || :
+touch --no-create %{_kde4_iconsdir}/Fedora-KDE ||:
+if [ -x /usr/bin/gtk-update-icon-cache ]; then
+  if [ -f %{_datadir}/icons/Fedora/index.theme ]; then
+    gtk-update-icon-cache --quiet %{_datadir}/icons/Fedora || :
+  fi
+  if [ -f %{_kde4_iconsdir}/Fedora-KDE/index.theme ]; then
+    gtk-update-icon-cache --quiet %{_kde4_iconsdir}/Fedora-KDE/index.theme || :
+  fi
+fi
+
+%posttrans
+if [ -x /usr/bin/gtk-update-icon-cache ]; then
+  if [ -f %{_datadir}/icons/Fedora/index.theme ]; then
+    gtk-update-icon-cache --quiet %{_datadir}/icons/Fedora || :
+  fi
+  if [ -f %{_kde4_iconsdir}/Fedora-KDE/index.theme ]; then
+    gtk-update-icon-cache --quiet %{_kde4_iconsdir}/Fedora-KDE/index.theme || :
+  fi
+fi
+
+
 %clean
 rm -rf %{buildroot}
 
@@ -90,12 +117,17 @@ rm -rf %{buildroot}
 %{_datadir}/plymouth/themes/charge/*
 /usr/lib/anaconda-runtime/*.jpg
 %{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536/logo.png
-%{_datadir}/kde-settings/kde-profile/default/share/icons/Fedora-KDE/*/apps/*
+%{_kde4_iconsdir}/Fedora-KDE/
 # should be ifarch i386
 /boot/grub/splash.xpm.gz
 # end i386 bits
 
 %changelog
+* Fri Jun 25 2010 Rex Dieter <rdieter@fedoraproject.org> - 13.0.2-2
+- Fedora-KDE icons are now fedora-kde-icons-theme, not kde-settings
+- include icon scriplets
+- drop ancient Conflicts: kdebase ...
+
 * Tue May  4 2010 Bill Nottingham <notting@redhat.com> - 13.0.1-1
 - Add logos to make firstboot work
 
