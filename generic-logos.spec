@@ -1,6 +1,6 @@
 Name:       generic-logos
 Version:    13.0.1
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Icons and pictures
 
 Group:      System Environment/Base
@@ -92,6 +92,7 @@ if [ -x /usr/bin/gtk-update-icon-cache ]; then
     gtk-update-icon-cache --quiet %{_kde4_iconsdir}/Fedora-KDE/index.theme || :
   fi
 fi
+fi
 
 %posttrans
 if [ -x /usr/bin/gtk-update-icon-cache ]; then
@@ -123,6 +124,9 @@ rm -rf %{buildroot}
 # end i386 bits
 
 %changelog
+* Sat Jul 17 2010 Rex Dieter <rdieter@fedoraproject.org> - 13.0.2-3
+- fix %%postun scriptlet error
+
 * Fri Jun 25 2010 Rex Dieter <rdieter@fedoraproject.org> - 13.0.2-2
 - Fedora-KDE icons are now fedora-kde-icons-theme, not kde-settings
 - include icon scriplets
