@@ -113,10 +113,10 @@ rm -rf %{buildroot}
 %doc COPYING COPYING-kde-logo README
 %{_datadir}/firstboot/themes/*
 %{_datadir}/anaconda/pixmaps/*
+%{_datadir}/anaconda/*jpg
 %{_datadir}/icons/Fedora/*/apps/*
 %{_datadir}/pixmaps/*
 %{_datadir}/plymouth/themes/charge/*
-/usr/lib/anaconda-runtime/*.jpg
 %{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536/logo.png
 %{_kde4_iconsdir}/Fedora-KDE/
 # should be ifarch i386
