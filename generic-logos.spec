@@ -1,6 +1,6 @@
 Name:       generic-logos
-Version:    13.0.1
-Release:    3%{?dist}
+Version:    13.0.2
+Release:    1%{?dist}
 Summary:    Icons and pictures
 
 Group:      System Environment/Base
@@ -124,6 +124,9 @@ rm -rf %{buildroot}
 # end i386 bits
 
 %changelog
+* Tue Jul 27 2010 Bill Nottingham <notting@redhat.com> - 13.0.3-1
+- sync with current anaconda reality (#618598, <jkeating@redhat.com>)
+
 * Sat Jul 17 2010 Rex Dieter <rdieter@fedoraproject.org> - 13.0.2-3
 - fix %%postun scriptlet error
 
