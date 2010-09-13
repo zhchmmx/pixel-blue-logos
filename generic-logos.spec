@@ -1,5 +1,5 @@
 Name:       generic-logos
-Version:    13.0.2
+Version:    14.0
 Release:    1%{?dist}
 Summary:    Icons and pictures
 
@@ -124,13 +124,16 @@ rm -rf %{buildroot}
 # end i386 bits
 
 %changelog
-* Tue Jul 27 2010 Bill Nottingham <notting@redhat.com> - 13.0.3-1
+* Mon Sep 13 2010 Bill Nottingham <notting@redhat.com> - 14.0-1
+- update for Fedora 14
+
+* Tue Jul 27 2010 Bill Nottingham <notting@redhat.com> - 13.0.2-1
 - sync with current anaconda reality (#618598, <jkeating@redhat.com>)
 
-* Sat Jul 17 2010 Rex Dieter <rdieter@fedoraproject.org> - 13.0.2-3
+* Sat Jul 17 2010 Rex Dieter <rdieter@fedoraproject.org> - 13.0.1-3
 - fix %%postun scriptlet error
 
-* Fri Jun 25 2010 Rex Dieter <rdieter@fedoraproject.org> - 13.0.2-2
+* Fri Jun 25 2010 Rex Dieter <rdieter@fedoraproject.org> - 13.0.1-2
 - Fedora-KDE icons are now fedora-kde-icons-theme, not kde-settings
 - include icon scriplets
 - drop ancient Conflicts: kdebase ...
