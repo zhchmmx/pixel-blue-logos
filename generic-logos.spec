@@ -1,5 +1,5 @@
 Name:       generic-logos
-Version:    14.0
+Version:    14.0.1
 Release:    1%{?dist}
 Summary:    Icons and pictures
 
@@ -112,8 +112,8 @@ rm -rf %{buildroot}
 %defattr(-,root,root,-)
 %doc COPYING COPYING-kde-logo README
 %{_datadir}/firstboot/themes/*
+%{_datadir}/anaconda/boot/*
 %{_datadir}/anaconda/pixmaps/*
-%{_datadir}/anaconda/*jpg
 %{_datadir}/icons/Fedora/*/apps/*
 %{_datadir}/pixmaps/*
 %{_datadir}/plymouth/themes/charge/*
@@ -124,6 +124,9 @@ rm -rf %{buildroot}
 # end i386 bits
 
 %changelog
+* Tue Sep 14 2010 Bill Nottingham <notting@redhat.com> - 14.0.1-1
+- fix for new anaconda paths
+
 * Mon Sep 13 2010 Bill Nottingham <notting@redhat.com> - 14.0-1
 - update for Fedora 14
 
