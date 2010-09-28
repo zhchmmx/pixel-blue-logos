@@ -1,6 +1,6 @@
 Name:       generic-logos
 Version:    14.0.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Icons and pictures
 
 Group:      System Environment/Base
@@ -18,6 +18,7 @@ Provides:   system-logos = %{version}-%{release}
 Conflicts:  fedora-logos
 Conflicts:  anaconda-images <= 10
 Conflicts:  redhat-artwork <= 5.0.5
+BuildRequires: hardlink
 # For _kde4_* macros:
 BuildRequires: kde-filesystem
 
@@ -58,8 +59,8 @@ for i in pixmaps/* ; do
   install -p -m 644 $i %{buildroot}%{_datadir}/pixmaps
 done
 
-mkdir -p %{buildroot}%{_kde4_iconsdir}/Fedora-KDE/48x48/apps/
-install -p -m 644 icons/Fedora/48x48/apps/* %{buildroot}%{_kde4_iconsdir}/Fedora-KDE/48x48/apps/
+mkdir -p %{buildroot}%{_kde4_iconsdir}/oxygen/48x48/apps/
+install -p -m 644 icons/Fedora/48x48/apps/* %{buildroot}%{_kde4_iconsdir}/oxygen/48x48/apps/
 mkdir -p %{buildroot}%{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536
 install -p -m 644 ksplash/SolarComet-kde.png %{buildroot}%{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536/logo.png
 
@@ -76,14 +77,18 @@ install	-p -m 644 icons/Fedora/scalable/apps/* %{buildroot}%{_datadir}/icons/Fed
 
 (cd anaconda; make DESTDIR=%{buildroot} install)
 
+# save some dup'd icons
+/usr/sbin/hardlink -v %{buildroot}/
+
+
 %post
 touch --no-create %{_datadir}/icons/Fedora || :
-touch --no-create %{_kde4_iconsdir}/Fedora-KDE ||:
+touch --no-create %{_kde4_iconsdir}/oxygen ||:
 
 %postun
 if [ $1 -eq 0 ] ; then
 touch --no-create %{_datadir}/icons/Fedora || :
-touch --no-create %{_kde4_iconsdir}/Fedora-KDE ||:
+touch --no-create %{_kde4_iconsdir}/oxygen ||:
 if [ -x /usr/bin/gtk-update-icon-cache ]; then
   if [ -f %{_datadir}/icons/Fedora/index.theme ]; then
     gtk-update-icon-cache --quiet %{_datadir}/icons/Fedora || :
@@ -99,8 +104,8 @@ if [ -x /usr/bin/gtk-update-icon-cache ]; then
   if [ -f %{_datadir}/icons/Fedora/index.theme ]; then
     gtk-update-icon-cache --quiet %{_datadir}/icons/Fedora || :
   fi
-  if [ -f %{_kde4_iconsdir}/Fedora-KDE/index.theme ]; then
-    gtk-update-icon-cache --quiet %{_kde4_iconsdir}/Fedora-KDE/index.theme || :
+  if [ -f %{_kde4_iconsdir}/oxygen/index.theme ]; then
+    gtk-update-icon-cache --quiet %{_kde4_iconsdir}/oxygen/index.theme || :
   fi
 fi
 
@@ -118,12 +123,16 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/*
 %{_datadir}/plymouth/themes/charge/*
 %{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536/logo.png
-%{_kde4_iconsdir}/Fedora-KDE/
+%{_kde4_iconsdir}/oxygen/
 # should be ifarch i386
 /boot/grub/splash.xpm.gz
 # end i386 bits
 
 %changelog
+* Tue Sep 28 2010 Rex Dieter <rdieter@fedoraproject.org> - 14.0.0-2
+- s/Fedora-KDE/oxygen/ icons (#615621)
+- use hardlink to save a little space
+
 * Tue Sep 14 2010 Bill Nottingham <notting@redhat.com> - 14.0.1-1
 - fix for new anaconda paths
 
