@@ -129,7 +129,7 @@ rm -rf %{buildroot}
 # end i386 bits
 
 %changelog
-* Tue Sep 28 2010 Rex Dieter <rdieter@fedoraproject.org> - 14.0.0-2
+* Tue Sep 28 2010 Rex Dieter <rdieter@fedoraproject.org> - 14.0.1-2
 - s/Fedora-KDE/oxygen/ icons (#615621)
 - use hardlink to save a little space
 
