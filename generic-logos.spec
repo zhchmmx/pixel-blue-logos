@@ -1,6 +1,6 @@
 Name:       generic-logos
 Version:    14.0.1
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Icons and pictures
 
 Group:      System Environment/Base
@@ -21,7 +21,7 @@ Conflicts:  redhat-artwork <= 5.0.5
 BuildRequires: hardlink
 # For _kde4_* macros:
 BuildRequires: kde-filesystem
-
+Requires(post): coreutils
 
 %description
 The generic-logos package contains various image files which can be
@@ -129,6 +129,9 @@ rm -rf %{buildroot}
 # end i386 bits
 
 %changelog
+* Mon Nov 29 2010 Bill Nottingham <notting@redhat.com> - 14.0.1-3
+- prereq coreutils (#657766)
+
 * Tue Sep 28 2010 Rex Dieter <rdieter@fedoraproject.org> - 14.0.1-2
 - s/Fedora-KDE/oxygen/ icons (#615621)
 - use hardlink to save a little space
