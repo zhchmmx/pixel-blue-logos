@@ -1,6 +1,6 @@
 Name:       generic-logos
 Version:    14.0.1
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Icons and pictures
 
 Group:      System Environment/Base
@@ -10,7 +10,8 @@ Source0:    https://fedorahosted.org/released/%{name}/%{name}-%{version}.tar.bz2
 License:    GPLv2 and LGPLv2+
 BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:  noarch
-
+Source1:    holiday.png
+Source2:    holiday-small.png
 Obsoletes:  redhat-logos
 Provides:   redhat-logos = %{version}-%{release}
 Provides:   system-logos = %{version}-%{release}
@@ -58,6 +59,10 @@ mkdir -p %{buildroot}%{_datadir}/pixmaps
 for i in pixmaps/* ; do
   install -p -m 644 $i %{buildroot}%{_datadir}/pixmaps
 done
+
+install -m 644 %{SOURCE1} %{buildroot}%{_datadir}/pixmaps/fedora-logo.png
+install -m 644 %{SOURCE1} %{buildroot}%{_datadir}/pixmaps/system-logo-white.png
+install -m 644 %{SOURCE2} %{buildroot}%{_datadir}/pixmaps/fedora-logo-small.png
 
 mkdir -p %{buildroot}%{_kde4_iconsdir}/oxygen/48x48/apps/
 install -p -m 644 icons/Fedora/48x48/apps/* %{buildroot}%{_kde4_iconsdir}/oxygen/48x48/apps/
@@ -129,6 +134,9 @@ rm -rf %{buildroot}
 # end i386 bits
 
 %changelog
+* Thu Dec 09 2010 Bill Nottingham <notting@redhat.com> - 14.0.1-4
+- the candy cane inidicates progress (@mairin)
+
 * Mon Nov 29 2010 Bill Nottingham <notting@redhat.com> - 14.0.1-3
 - prereq coreutils (#657766)
 
