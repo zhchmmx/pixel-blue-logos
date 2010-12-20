@@ -1,6 +1,6 @@
 Name:       generic-logos
-Version:    14.0.1
-Release:    4%{?dist}
+Version:    14.0.2
+Release:    1%{?dist}
 Summary:    Icons and pictures
 
 Group:      System Environment/Base
@@ -22,6 +22,8 @@ Conflicts:  redhat-artwork <= 5.0.5
 BuildRequires: hardlink
 # For _kde4_* macros:
 BuildRequires: kde-filesystem
+# For generating the EFI icon
+BuildRequires: libicns-utils
 Requires(post): coreutils
 
 %description
@@ -33,9 +35,13 @@ fedora-logos package.
 
 %prep
 %setup -q
+cp -a %{SOURCE1} pixmaps/fedora-logo.png
+cp -a %{SOURCE1} pixmaps/system-logo-white.png
+cp -a %{SOURCE2} pixmaps/fedora-logo-small.png
 
 %build
 #nothing to build
+make
 
 %install
 rm -rf %{buildroot}
@@ -45,10 +51,14 @@ mkdir -p %{buildroot}/boot/grub
 install -p -m 644 bootloader/splash.xpm.gz %{buildroot}/boot/grub/splash.xpm.gz
 # end i386 bits
 
+
 mkdir -p %{buildroot}%{_datadir}/firstboot/themes/generic
 for i in firstboot/* ; do
   install -p -m 644 $i %{buildroot}%{_datadir}/firstboot/themes/generic
 done
+
+mkdir -p %{buildroot}%{_datadir}/pixmaps/bootloader
+install -p -m 644 bootloader/fedora.icns %{buildroot}%{_datadir}/pixmaps/bootloader
 
 mkdir -p %{buildroot}%{_datadir}/pixmaps/splash
 for i in gnome-splash/* ; do
@@ -60,9 +70,6 @@ for i in pixmaps/* ; do
   install -p -m 644 $i %{buildroot}%{_datadir}/pixmaps
 done
 
-install -m 644 %{SOURCE1} %{buildroot}%{_datadir}/pixmaps/fedora-logo.png
-install -m 644 %{SOURCE1} %{buildroot}%{_datadir}/pixmaps/system-logo-white.png
-install -m 644 %{SOURCE2} %{buildroot}%{_datadir}/pixmaps/fedora-logo-small.png
 
 mkdir -p %{buildroot}%{_kde4_iconsdir}/oxygen/48x48/apps/
 install -p -m 644 icons/Fedora/48x48/apps/* %{buildroot}%{_kde4_iconsdir}/oxygen/48x48/apps/
@@ -84,7 +91,6 @@ install	-p -m 644 icons/Fedora/scalable/apps/* %{buildroot}%{_datadir}/icons/Fed
 
 # save some dup'd icons
 /usr/sbin/hardlink -v %{buildroot}/
-
 
 %post
 touch --no-create %{_datadir}/icons/Fedora || :
@@ -134,6 +140,9 @@ rm -rf %{buildroot}
 # end i386 bits
 
 %changelog
+* Fri Dec 17 2010 Matthew Garrett <mjg@redhat.com> - 14.0.2-1
+- add an icon for Mac EFI bootloaders
+
 * Thu Dec 09 2010 Bill Nottingham <notting@redhat.com> - 14.0.1-4
 - the candy cane inidicates progress (@mairin)
 
