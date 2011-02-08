@@ -1,6 +1,6 @@
 Name:       generic-logos
 Version:    14.0.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Icons and pictures
 
 Group:      System Environment/Base
@@ -140,6 +140,9 @@ rm -rf %{buildroot}
 # end i386 bits
 
 %changelog
+* Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 14.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
 * Fri Dec 17 2010 Matthew Garrett <mjg@redhat.com> - 14.0.2-1
 - add an icon for Mac EFI bootloaders
 
