@@ -1,6 +1,6 @@
 Name:       generic-logos
-Version:    14.0.2
-Release:    2%{?dist}
+Version:    15.0.0
+Release:    1%{?dist}
 Summary:    Icons and pictures
 
 Group:      System Environment/Base
@@ -10,8 +10,7 @@ Source0:    https://fedorahosted.org/released/%{name}/%{name}-%{version}.tar.bz2
 License:    GPLv2 and LGPLv2+
 BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:  noarch
-Source1:    holiday.png
-Source2:    holiday-small.png
+
 Obsoletes:  redhat-logos
 Provides:   redhat-logos = %{version}-%{release}
 Provides:   system-logos = %{version}-%{release}
@@ -35,12 +34,8 @@ fedora-logos package.
 
 %prep
 %setup -q
-cp -a %{SOURCE1} pixmaps/fedora-logo.png
-cp -a %{SOURCE1} pixmaps/system-logo-white.png
-cp -a %{SOURCE2} pixmaps/fedora-logo-small.png
 
 %build
-#nothing to build
 make
 
 %install
@@ -58,7 +53,8 @@ for i in firstboot/* ; do
 done
 
 mkdir -p %{buildroot}%{_datadir}/pixmaps/bootloader
-install -p -m 644 bootloader/fedora.icns %{buildroot}%{_datadir}/pixmaps/bootloader
+  install -p -m 644 bootloader/fedora.icns %{buildroot}%{_datadir}/pixmaps/bootloader
+done
 
 mkdir -p %{buildroot}%{_datadir}/pixmaps/splash
 for i in gnome-splash/* ; do
@@ -69,7 +65,6 @@ mkdir -p %{buildroot}%{_datadir}/pixmaps
 for i in pixmaps/* ; do
   install -p -m 644 $i %{buildroot}%{_datadir}/pixmaps
 done
-
 
 mkdir -p %{buildroot}%{_kde4_iconsdir}/oxygen/48x48/apps/
 install -p -m 644 icons/Fedora/48x48/apps/* %{buildroot}%{_kde4_iconsdir}/oxygen/48x48/apps/
@@ -140,14 +135,11 @@ rm -rf %{buildroot}
 # end i386 bits
 
 %changelog
-* Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 14.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+* Tue Mar 22 2011 Bill Nottingham <notting@redhat.com> - 15.0.0-1
+- update for Fedora 15
 
 * Fri Dec 17 2010 Matthew Garrett <mjg@redhat.com> - 14.0.2-1
 - add an icon for Mac EFI bootloaders
-
-* Thu Dec 09 2010 Bill Nottingham <notting@redhat.com> - 14.0.1-4
-- the candy cane inidicates progress (@mairin)
 
 * Mon Nov 29 2010 Bill Nottingham <notting@redhat.com> - 14.0.1-3
 - prereq coreutils (#657766)
@@ -155,7 +147,7 @@ rm -rf %{buildroot}
 * Tue Sep 28 2010 Rex Dieter <rdieter@fedoraproject.org> - 14.0.1-2
 - s/Fedora-KDE/oxygen/ icons (#615621)
 - use hardlink to save a little space
-
+ 
 * Tue Sep 14 2010 Bill Nottingham <notting@redhat.com> - 14.0.1-1
 - fix for new anaconda paths
 
