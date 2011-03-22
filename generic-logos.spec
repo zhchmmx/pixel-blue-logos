@@ -53,8 +53,7 @@ for i in firstboot/* ; do
 done
 
 mkdir -p %{buildroot}%{_datadir}/pixmaps/bootloader
-  install -p -m 644 bootloader/fedora.icns %{buildroot}%{_datadir}/pixmaps/bootloader
-done
+install -p -m 644 bootloader/fedora.icns %{buildroot}%{_datadir}/pixmaps/bootloader
 
 mkdir -p %{buildroot}%{_datadir}/pixmaps/splash
 for i in gnome-splash/* ; do
