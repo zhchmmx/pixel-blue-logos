@@ -1,6 +1,6 @@
 Name:       generic-logos
 Version:    15.0.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Icons and pictures
 
 Group:      System Environment/Base
@@ -134,6 +134,9 @@ rm -rf %{buildroot}
 # end i386 bits
 
 %changelog
+* Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 15.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
 * Tue Mar 22 2011 Bill Nottingham <notting@redhat.com> - 15.0.0-1
 - update for Fedora 15
 
