@@ -1,6 +1,6 @@
 Name:       generic-logos
-Version:    15.0.0
-Release:    2%{?dist}
+Version:    17.0.0
+Release:    1%{?dist}
 Summary:    Icons and pictures
 
 Group:      System Environment/Base
@@ -30,7 +30,7 @@ The generic-logos package contains various image files which can be
 used by the bootloader, anaconda, and other related tools. It can
 be used as a replacement for the fedora-logos package, if you are
 unable for any reason to abide by the trademark restrictions on the
-fedora-logos package.
+fedora-logos or fedora-remix-logos package.
 
 %prep
 %setup -q
@@ -54,6 +54,8 @@ done
 
 mkdir -p %{buildroot}%{_datadir}/pixmaps/bootloader
 install -p -m 644 bootloader/fedora.icns %{buildroot}%{_datadir}/pixmaps/bootloader
+install -p -m 644 bootloader/fedora.vol %{buildroot}%{_datadir}/pixmaps/bootloader
+install -p -m 644 bootloader/fedora-media.vol  %{buildroot}%{_datadir}/pixmaps/bootloader
 
 mkdir -p %{buildroot}%{_datadir}/pixmaps/splash
 for i in gnome-splash/* ; do
@@ -134,8 +136,11 @@ rm -rf %{buildroot}
 # end i386 bits
 
 %changelog
-* Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 15.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+* Wed May  2 2012 Bill Nottingham <notting@redhat.com> - 17.0.0-1
+- update for Fedora 17 - .vol files for mactel boot
+
+* Fri Oct 14 2011 Bill Nottingham <notting@redhat.com> - 16.0.0-1
+- update syslinux & firstboot splashes for F16
 
 * Tue Mar 22 2011 Bill Nottingham <notting@redhat.com> - 15.0.0-1
 - update for Fedora 15
