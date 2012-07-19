@@ -1,6 +1,6 @@
 Name:       generic-logos
 Version:    17.0.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Icons and pictures
 
 Group:      System Environment/Base
@@ -136,6 +136,9 @@ rm -rf %{buildroot}
 # end i386 bits
 
 %changelog
+* Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 17.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+
 * Wed May  2 2012 Bill Nottingham <notting@redhat.com> - 17.0.0-1
 - update for Fedora 17 - .vol files for mactel boot
 
