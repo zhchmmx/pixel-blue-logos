@@ -1,6 +1,6 @@
 Name:       generic-logos
 Version:    17.0.0
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Icons and pictures
 
 Group:      System Environment/Base
@@ -136,6 +136,9 @@ rm -rf %{buildroot}
 # end i386 bits
 
 %changelog
+* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 17.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
 * Wed Feb 13 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 17.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
