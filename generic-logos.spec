@@ -32,6 +32,16 @@ be used as a replacement for the fedora-logos package, if you are
 unable for any reason to abide by the trademark restrictions on the
 fedora-logos or fedora-remix-logos package.
 
+%package httpd
+Summary: Fedora-related icons and pictures used by httpd
+Provides: system-logos-httpd = %{version}-%{release}
+Provides: fedora-logos-httpd = %{version}-%{release}
+BuildArch: noarch
+
+%description httpd
+The generic-logos-httpd package contains image files which can be used by
+httpd.
+
 %prep
 %setup -q
 
@@ -128,12 +138,17 @@ rm -rf %{buildroot}
 %{_datadir}/anaconda/pixmaps/*
 %{_datadir}/icons/Fedora/*/apps/*
 %{_datadir}/pixmaps/*
+%exclude %{_datadir}/pixmaps/poweredby.png
 %{_datadir}/plymouth/themes/charge/*
 %{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536/logo.png
 %{_kde4_iconsdir}/oxygen/
 # should be ifarch i386
 /boot/grub/splash.xpm.gz
 # end i386 bits
+
+%files httpd
+%doc COPYING
+%{_datadir}/pixmaps/poweredby.png
 
 %changelog
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 17.0.0-4
