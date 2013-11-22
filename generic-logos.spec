@@ -1,6 +1,6 @@
 Name:       generic-logos
 Version:    17.0.0
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Icons and pictures
 
 Group:      System Environment/Base
@@ -12,6 +12,7 @@ BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:  noarch
 
 Obsoletes:  redhat-logos
+Obsoletes:  generic-logos < 17.0.0-5
 Provides:   redhat-logos = %{version}-%{release}
 Provides:   system-logos = %{version}-%{release}
 
@@ -36,6 +37,7 @@ fedora-logos or fedora-remix-logos package.
 Summary: Fedora-related icons and pictures used by httpd
 Provides: system-logos-httpd = %{version}-%{release}
 Provides: fedora-logos-httpd = %{version}-%{release}
+Obsoletes:  generic-logos < 17.0.0-5
 BuildArch: noarch
 
 %description httpd
@@ -151,6 +153,9 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/poweredby.png
 
 %changelog
+* Fri Nov 22 2013 Bill Nottingham <notting@redhat.com> - 17.0.0-5
+- Add a -httpd subpackage. (#1031288)
+
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 17.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
