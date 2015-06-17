@@ -1,6 +1,6 @@
 Name:       generic-logos
 Version:    17.0.0
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    Icons and pictures
 
 Group:      System Environment/Base
@@ -153,6 +153,9 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/poweredby.png
 
 %changelog
+* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 17.0.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 17.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
