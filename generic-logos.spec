@@ -1,6 +1,6 @@
 Name:       generic-logos
-Version:    17.0.0
-Release:    8%{?dist}
+Version:    18.0.0
+Release:    1%{?dist}
 Summary:    Icons and pictures
 
 Group:      System Environment/Base
@@ -46,18 +46,11 @@ httpd.
 
 %prep
 %setup -q
-
 %build
 make
 
 %install
 rm -rf %{buildroot}
-
-# should be ifarch i386
-mkdir -p %{buildroot}/boot/grub
-install -p -m 644 bootloader/splash.xpm.gz %{buildroot}/boot/grub/splash.xpm.gz
-# end i386 bits
-
 
 mkdir -p %{buildroot}%{_datadir}/firstboot/themes/generic
 for i in firstboot/* ; do
@@ -144,15 +137,15 @@ rm -rf %{buildroot}
 %{_datadir}/plymouth/themes/charge/*
 %{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536/logo.png
 %{_kde4_iconsdir}/oxygen/
-# should be ifarch i386
-/boot/grub/splash.xpm.gz
-# end i386 bits
 
 %files httpd
 %doc COPYING
 %{_datadir}/pixmaps/poweredby.png
 
 %changelog
+* Sun Nov 13 2016 Bill Nottingham <notting@splat.cc> - 18.0.0-1
+- update boot file definition, add anconda sidebar/topbar logos
+
 * Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 17.0.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
