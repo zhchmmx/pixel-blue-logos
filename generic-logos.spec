@@ -1,6 +1,6 @@
 Name:       generic-logos
 Version:    18.0.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Icons and pictures
 
 Group:      System Environment/Base
@@ -143,6 +143,9 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/poweredby.png
 
 %changelog
+* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 18.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 * Sun Nov 13 2016 Bill Nottingham <notting@splat.cc> - 18.0.0-1
 - update boot file definition, add anconda sidebar/topbar logos
 
