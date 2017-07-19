@@ -1,6 +1,6 @@
 Name:       generic-logos
 Version:    18.0.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Icons and pictures
 
 Group:      System Environment/Base
@@ -72,21 +72,37 @@ for i in pixmaps/* ; do
   install -p -m 644 $i %{buildroot}%{_datadir}/pixmaps
 done
 
+for size in scalable ; do
+  mkdir -p %{buildroot}%{_datadir}/icons/hicolor/$size/apps
+  ln -s ../../../hicolor/$size/apps/fedora-logo-icon.svg icon-panel-menu.svg
+  ln -s ../../../hicolor/$size/apps/fedora-logo-icon.svg gnome-main-menu.svg
+  ln -s ../../../hicolor/$size/apps/fedora-logo-icon.svg kmenu.svg
+  ln -s ../../../hicolor/$size/apps/fedora-logo-icon.svg start-here.svg
+  install -p -m 644 pixmaps/fedora-logo-sprite.svg %{buildroot}%{_datadir}/icons/hicolor/$size/apps/fedora-logo-icon.svg
+done
+
 mkdir -p %{buildroot}%{_kde4_iconsdir}/oxygen/48x48/apps/
 install -p -m 644 icons/Fedora/48x48/apps/* %{buildroot}%{_kde4_iconsdir}/oxygen/48x48/apps/
 mkdir -p %{buildroot}%{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536
 install -p -m 644 ksplash/SolarComet-kde.png %{buildroot}%{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536/logo.png
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/plymouth/themes/charge/
+mkdir -p %{buildroot}%{_datadir}/plymouth/themes/charge/
 for i in plymouth/charge/* ; do
-    install -p -m 644 $i $RPM_BUILD_ROOT%{_datadir}/plymouth/themes/charge/
+    install -p -m 644 $i %{buildroot}%{_datadir}/plymouth/themes/charge/
 done
 
 # File or directory names do not count as trademark infringement
-mkdir -p %{buildroot}%{_datadir}/icons/Fedora/48x48/apps/
-mkdir -p %{buildroot}%{_datadir}/icons/Fedora/scalable/apps/
-install -p -m 644 icons/Fedora/48x48/apps/* %{buildroot}%{_datadir}/icons/Fedora/48x48/apps/
-install	-p -m 644 icons/Fedora/scalable/apps/* %{buildroot}%{_datadir}/icons/Fedora/scalable/apps/
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
+install -p -m 644 icons/Fedora/48x48/apps/* %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/
+install	-p -m 644 icons/Fedora/scalable/apps/* %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
+install -p -m 644 pixmaps/fedora-logo-sprite.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
+install -p -m 644 pixmaps/fedora-logo-sprite.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/start-here.svg
+
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/places/
+pushd %{buildroot}%{_datadir}/icons/hicolor/scalable/places/
+ln -s ../apps/start-here.svg .
+popd
 
 (cd anaconda; make DESTDIR=%{buildroot} install)
 
@@ -94,16 +110,16 @@ install	-p -m 644 icons/Fedora/scalable/apps/* %{buildroot}%{_datadir}/icons/Fed
 /usr/sbin/hardlink -v %{buildroot}/
 
 %post
-touch --no-create %{_datadir}/icons/Fedora || :
+touch --no-create %{_datadir}/icons/hicolor || :
 touch --no-create %{_kde4_iconsdir}/oxygen ||:
 
 %postun
 if [ $1 -eq 0 ] ; then
-touch --no-create %{_datadir}/icons/Fedora || :
+touch --no-create %{_datadir}/icons/hicolor || :
 touch --no-create %{_kde4_iconsdir}/oxygen ||:
 if [ -x /usr/bin/gtk-update-icon-cache ]; then
-  if [ -f %{_datadir}/icons/Fedora/index.theme ]; then
-    gtk-update-icon-cache --quiet %{_datadir}/icons/Fedora || :
+  if [ -f %{_datadir}/icons/hicolor/index.theme ]; then
+    gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
   fi
   if [ -f %{_kde4_iconsdir}/Fedora-KDE/index.theme ]; then
     gtk-update-icon-cache --quiet %{_kde4_iconsdir}/Fedora-KDE/index.theme || :
@@ -131,7 +147,8 @@ rm -rf %{buildroot}
 %{_datadir}/firstboot/themes/*
 %{_datadir}/anaconda/boot/*
 %{_datadir}/anaconda/pixmaps/*
-%{_datadir}/icons/Fedora/*/apps/*
+%{_datadir}/icons/hicolor/*/apps/*
+%{_datadir}/icons/hicolor/*/places/*
 %{_datadir}/pixmaps/*
 %exclude %{_datadir}/pixmaps/poweredby.png
 %{_datadir}/plymouth/themes/charge/*
@@ -143,6 +160,9 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/poweredby.png
 
 %changelog
+* Tue Jul 18 2017 Bill Nottingham <notting@splat.cc> - 18.0.0-3
+- properly put icons in hicolor themes (#1444124)
+
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 18.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
