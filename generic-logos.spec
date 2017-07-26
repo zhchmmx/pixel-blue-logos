@@ -1,6 +1,6 @@
 Name:       generic-logos
 Version:    18.0.0
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Icons and pictures
 
 Group:      System Environment/Base
@@ -160,6 +160,9 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/poweredby.png
 
 %changelog
+* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 18.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
 * Tue Jul 18 2017 Bill Nottingham <notting@splat.cc> - 18.0.0-3
 - properly put icons in hicolor themes (#1444124)
 
