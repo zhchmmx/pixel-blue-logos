@@ -8,7 +8,6 @@ URL:        https://fedorahosted.org/generic-logos/
 Source0:    https://fedorahosted.org/released/%{name}/%{name}-%{version}.tar.bz2
 #The KDE Logo is under a LGPL license (no version statement)
 License:    GPLv2 and LGPLv2+
-BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:  noarch
 
 Obsoletes:  redhat-logos
