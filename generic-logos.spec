@@ -137,9 +137,6 @@ if [ -x /usr/bin/gtk-update-icon-cache ]; then
 fi
 
 
-%clean
-rm -rf %{buildroot}
-
 %files
 %defattr(-,root,root,-)
 %doc COPYING COPYING-kde-logo README
