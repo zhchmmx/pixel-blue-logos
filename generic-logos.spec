@@ -138,7 +138,6 @@ fi
 
 
 %files
-%defattr(-,root,root,-)
 %doc COPYING COPYING-kde-logo README
 %{_datadir}/firstboot/themes/*
 %{_datadir}/anaconda/boot/*
