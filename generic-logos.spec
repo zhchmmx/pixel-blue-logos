@@ -1,6 +1,6 @@
 Name:       generic-logos
 Version:    18.0.0
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Icons and pictures
 
 Group:      System Environment/Base
@@ -155,6 +155,9 @@ fi
 %{_datadir}/pixmaps/poweredby.png
 
 %changelog
+* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 18.0.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 18.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
