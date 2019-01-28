@@ -3,7 +3,6 @@ Version:    18.0.0
 Release:    6%{?dist}
 Summary:    Icons and pictures
 
-Group:      System Environment/Base
 URL:        https://fedorahosted.org/generic-logos/ 
 Source0:    https://fedorahosted.org/released/%{name}/%{name}-%{version}.tar.bz2
 #The KDE Logo is under a LGPL license (no version statement)
