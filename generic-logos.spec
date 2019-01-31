@@ -1,6 +1,6 @@
 Name:       generic-logos
 Version:    18.0.0
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    Icons and pictures
 
 URL:        https://fedorahosted.org/generic-logos/ 
@@ -154,6 +154,9 @@ fi
 %{_datadir}/pixmaps/poweredby.png
 
 %changelog
+* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 18.0.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
 * Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 18.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
