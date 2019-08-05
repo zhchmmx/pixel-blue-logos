@@ -1,10 +1,10 @@
 Name:       generic-logos
 Version:    18.0.0
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    Icons and pictures
 
-URL:        https://fedorahosted.org/generic-logos/ 
-Source0:    https://fedorahosted.org/released/%{name}/%{name}-%{version}.tar.bz2
+URL:        https://pagure.io/generic-logos
+Source0:    https://releases.pagure.org/%{name}/%{name}-%{version}.tar.bz2
 #The KDE Logo is under a LGPL license (no version statement)
 License:    GPLv2 and LGPLv2+
 BuildArch:  noarch
@@ -17,7 +17,7 @@ Provides:   system-logos = %{version}-%{release}
 Conflicts:  fedora-logos
 Conflicts:  anaconda-images <= 10
 Conflicts:  redhat-artwork <= 5.0.5
-BuildRequires: hardlink
+BuildRequires: fdupes
 # For _kde4_* macros:
 BuildRequires: kde-filesystem
 # For generating the EFI icon
@@ -44,6 +44,7 @@ httpd.
 
 %prep
 %setup -q
+
 %build
 make
 
@@ -105,7 +106,7 @@ popd
 (cd anaconda; make DESTDIR=%{buildroot} install)
 
 # save some dup'd icons
-/usr/sbin/hardlink -v %{buildroot}/
+%fdupes %{buildroot}/
 
 %post
 touch --no-create %{_datadir}/icons/hicolor || :
@@ -137,7 +138,8 @@ fi
 
 
 %files
-%doc COPYING COPYING-kde-logo README
+%license COPYING COPYING-kde-logo
+%doc README
 %{_datadir}/firstboot/themes/*
 %{_datadir}/anaconda/boot/*
 %{_datadir}/anaconda/pixmaps/*
@@ -150,10 +152,15 @@ fi
 %{_kde4_iconsdir}/oxygen/
 
 %files httpd
-%doc COPYING
+%license COPYING
 %{_datadir}/pixmaps/poweredby.png
 
 %changelog
+* Sun Aug 04 2019 Neal Gompa <ngompa13@gmail.com> - 18.0.0-9
+- Update URLs for new location
+- Correctly store license files
+- Switch from hardlink to fdupes for deduplication (#1721939)
+
 * Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 18.0.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
