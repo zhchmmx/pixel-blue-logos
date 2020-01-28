@@ -1,6 +1,6 @@
 Name:       generic-logos
 Version:    18.0.0
-Release:    9%{?dist}
+Release:    10%{?dist}
 Summary:    Icons and pictures
 
 URL:        https://pagure.io/generic-logos
@@ -156,6 +156,9 @@ fi
 %{_datadir}/pixmaps/poweredby.png
 
 %changelog
+* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 18.0.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
 * Sun Aug 04 2019 Neal Gompa <ngompa13@gmail.com> - 18.0.0-9
 - Update URLs for new location
 - Correctly store license files
