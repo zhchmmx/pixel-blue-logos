@@ -17,6 +17,7 @@ Provides:   system-logos = %{version}-%{release}
 Conflicts:  fedora-logos
 Conflicts:  anaconda-images <= 10
 Conflicts:  redhat-artwork <= 5.0.5
+BuildRequires: make
 BuildRequires: fdupes
 # For _kde4_* macros:
 BuildRequires: kde-filesystem
