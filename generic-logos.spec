@@ -1,6 +1,6 @@
 Name:       generic-logos
 Version:    18.0.0
-Release:    13%{?dist}
+Release:    14%{?dist}
 Summary:    Icons and pictures
 
 URL:        https://pagure.io/generic-logos
@@ -157,6 +157,9 @@ fi
 %{_datadir}/pixmaps/poweredby.png
 
 %changelog
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 18.0.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
 * Tue Jul  6 2021 Tom Callaway <spot@fedoraproject.org> - 18.0.0-13
 - fix generic-logos-httpd conflict with fedora-logos-httpd
 
