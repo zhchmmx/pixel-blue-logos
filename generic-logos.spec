@@ -1,6 +1,6 @@
 Name:       generic-logos
 Version:    18.0.0
-Release:    22%{?dist}
+Release:    23%{?dist}
 Summary:    Icons and pictures
 
 URL:        https://pagure.io/generic-logos
@@ -20,7 +20,7 @@ Conflicts:  redhat-artwork <= 5.0.5
 BuildRequires: make
 BuildRequires: fdupes
 # For _kde4_* macros:
-BuildRequires: kde-filesystem
+BuildRequires: kde4-filesystem
 # For generating the EFI icon
 BuildRequires: libicns-utils
 Requires(post): coreutils
@@ -158,6 +158,9 @@ fi
 %{_datadir}/pixmaps/poweredby.png
 
 %changelog
+* Sat Jul 27 2024 Neal Gompa <ngompa@fedoraproject.org> - 18.0.0-23
+- Switch kde macros BR to kde4-filesystem
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 18.0.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 
