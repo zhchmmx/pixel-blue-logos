@@ -1,12 +1,13 @@
 Name:       generic-logos
 Version:    18.0.0
-Release:    23%{?dist}
+Release:    24%{?dist}
 Summary:    Icons and pictures
 
 URL:        https://pagure.io/generic-logos
 Source0:    https://releases.pagure.org/%{name}/%{name}-%{version}.tar.bz2
 #The KDE Logo is under a LGPL license (no version statement)
-License:    GPLv2 and LGPLv2+
+# Automatically converted from old format: GPLv2 and LGPLv2+ - review is highly recommended.
+License:    GPL-2.0-only AND LicenseRef-Callaway-LGPLv2+
 BuildArch:  noarch
 
 Obsoletes:  redhat-logos
@@ -158,6 +159,9 @@ fi
 %{_datadir}/pixmaps/poweredby.png
 
 %changelog
+* Wed Aug  28 2024 Miroslav Suchý <msuchy@redhat.com> - 18.0.0-24
+- convert license to SPDX
+
 * Sat Jul 27 2024 Neal Gompa <ngompa@fedoraproject.org> - 18.0.0-23
 - Switch kde macros BR to kde4-filesystem
 
