@@ -5,9 +5,7 @@ Summary:    Icons and pictures
 
 URL:        https://pagure.io/generic-logos
 Source0:    https://releases.pagure.org/%{name}/%{name}-%{version}.tar.bz2
-#The KDE Logo is under a LGPL license (no version statement)
-# Automatically converted from old format: GPLv2 and LGPLv2+ - review is highly recommended.
-License:    GPL-2.0-only AND LicenseRef-Callaway-LGPLv2+
+License:    GPL-2.0-only
 BuildArch:  noarch
 
 Obsoletes:  redhat-logos
@@ -85,8 +83,6 @@ done
 
 mkdir -p %{buildroot}%{_kde4_iconsdir}/oxygen/48x48/apps/
 install -p -m 644 icons/Fedora/48x48/apps/* %{buildroot}%{_kde4_iconsdir}/oxygen/48x48/apps/
-mkdir -p %{buildroot}%{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536
-install -p -m 644 ksplash/SolarComet-kde.png %{buildroot}%{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536/logo.png
 
 mkdir -p %{buildroot}%{_datadir}/plymouth/themes/charge/
 for i in plymouth/charge/* ; do
@@ -141,7 +137,7 @@ fi
 
 
 %files
-%license COPYING COPYING-kde-logo
+%license COPYING
 %doc README
 %{_datadir}/firstboot/themes/*
 %{_datadir}/anaconda/boot/*
@@ -151,7 +147,6 @@ fi
 %{_datadir}/pixmaps/*
 %exclude %{_datadir}/pixmaps/poweredby.png
 %{_datadir}/plymouth/themes/charge/*
-%{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536/logo.png
 %{_kde4_iconsdir}/oxygen/
 
 %files httpd
