@@ -18,8 +18,8 @@ Conflicts:  anaconda-images <= 10
 Conflicts:  redhat-artwork <= 5.0.5
 BuildRequires: make
 BuildRequires: fdupes
-# For _kde4_* macros:
-BuildRequires: kde4-filesystem
+# For _kf6_datadir macro
+BuildRequires: kf6-rpm-macros
 # For generating the EFI icon
 BuildRequires: libicns-utils
 Requires(post): coreutils
@@ -81,8 +81,8 @@ for size in scalable ; do
   install -p -m 644 pixmaps/fedora-logo-sprite.svg %{buildroot}%{_datadir}/icons/hicolor/$size/apps/fedora-logo-icon.svg
 done
 
-mkdir -p %{buildroot}%{_kde4_iconsdir}/oxygen/48x48/apps/
-install -p -m 644 icons/Fedora/48x48/apps/* %{buildroot}%{_kde4_iconsdir}/oxygen/48x48/apps/
+mkdir -p %{buildroot}%{_kf6_datadir}/oxygen/48x48/apps/
+install -p -m 644 icons/Fedora/48x48/apps/* %{buildroot}%{_kf6_datadir}/oxygen/48x48/apps/
 
 mkdir -p %{buildroot}%{_datadir}/plymouth/themes/charge/
 for i in plymouth/charge/* ; do
@@ -109,18 +109,18 @@ popd
 
 %post
 touch --no-create %{_datadir}/icons/hicolor || :
-touch --no-create %{_kde4_iconsdir}/oxygen ||:
+touch --no-create %{_kf6_datadir}/oxygen ||:
 
 %postun
 if [ $1 -eq 0 ] ; then
 touch --no-create %{_datadir}/icons/hicolor || :
-touch --no-create %{_kde4_iconsdir}/oxygen ||:
+touch --no-create %{_kf6_datadir}/oxygen ||:
 if [ -x /usr/bin/gtk-update-icon-cache ]; then
   if [ -f %{_datadir}/icons/hicolor/index.theme ]; then
     gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
   fi
-  if [ -f %{_kde4_iconsdir}/Fedora-KDE/index.theme ]; then
-    gtk-update-icon-cache --quiet %{_kde4_iconsdir}/Fedora-KDE/index.theme || :
+  if [ -f %{_kf6_datadir}/Fedora-KDE/index.theme ]; then
+    gtk-update-icon-cache --quiet %{_kf6_datadir}/Fedora-KDE/index.theme || :
   fi
 fi
 fi
@@ -130,8 +130,8 @@ if [ -x /usr/bin/gtk-update-icon-cache ]; then
   if [ -f %{_datadir}/icons/Fedora/index.theme ]; then
     gtk-update-icon-cache --quiet %{_datadir}/icons/Fedora || :
   fi
-  if [ -f %{_kde4_iconsdir}/oxygen/index.theme ]; then
-    gtk-update-icon-cache --quiet %{_kde4_iconsdir}/oxygen/index.theme || :
+  if [ -f %{_kf6_datadir}/oxygen/index.theme ]; then
+    gtk-update-icon-cache --quiet %{_kf6_datadir}/oxygen/index.theme || :
   fi
 fi
 
@@ -147,7 +147,7 @@ fi
 %{_datadir}/pixmaps/*
 %exclude %{_datadir}/pixmaps/poweredby.png
 %{_datadir}/plymouth/themes/charge/*
-%{_kde4_iconsdir}/oxygen/
+%{_kf6_datadir}/oxygen/
 
 %files httpd
 %license COPYING
