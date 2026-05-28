@@ -107,35 +107,6 @@ popd
 # save some dup'd icons
 %fdupes %{buildroot}/
 
-%post
-touch --no-create %{_datadir}/icons/hicolor || :
-touch --no-create %{_kf6_datadir}/oxygen ||:
-
-%postun
-if [ $1 -eq 0 ] ; then
-touch --no-create %{_datadir}/icons/hicolor || :
-touch --no-create %{_kf6_datadir}/oxygen ||:
-if [ -x /usr/bin/gtk-update-icon-cache ]; then
-  if [ -f %{_datadir}/icons/hicolor/index.theme ]; then
-    gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
-  fi
-  if [ -f %{_kf6_datadir}/Fedora-KDE/index.theme ]; then
-    gtk-update-icon-cache --quiet %{_kf6_datadir}/Fedora-KDE/index.theme || :
-  fi
-fi
-fi
-
-%posttrans
-if [ -x /usr/bin/gtk-update-icon-cache ]; then
-  if [ -f %{_datadir}/icons/Fedora/index.theme ]; then
-    gtk-update-icon-cache --quiet %{_datadir}/icons/Fedora || :
-  fi
-  if [ -f %{_kf6_datadir}/oxygen/index.theme ]; then
-    gtk-update-icon-cache --quiet %{_kf6_datadir}/oxygen/index.theme || :
-  fi
-fi
-
-
 %files
 %license COPYING
 %doc README
