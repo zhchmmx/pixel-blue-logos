@@ -12,6 +12,9 @@ Obsoletes:  redhat-logos
 Obsoletes:  generic-logos < 17.0.0-5
 Provides:   redhat-logos = %{version}-%{release}
 Provides:   system-logos = %{version}-%{release}
+# Fake provide as we don't have generic logos for icewm
+# See: https://src.fedoraproject.org/rpms/fedora-logos/pull-request/13
+Provides:   system-logos-icewm = %{version}-%{release}
 
 Conflicts:  fedora-logos
 Conflicts:  anaconda-images <= 10
