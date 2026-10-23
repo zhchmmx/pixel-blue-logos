@@ -57,6 +57,9 @@ for size in 16x16 22x22 24x24 32x32 36x36 48x48 96x96 256x256 ; do
   for i in icons/hicolor/$size/apps/* ; do
     install -p -m 644 $i $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/$size/apps
   done
+  mkdir -p $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/$size/places
+  install -p -m 644 -D icons/hicolor/$size/apps/pixel-blue-logo-icon.png \
+    $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/$size/places/start-here.png
 done
 
 # Symbolic icons
