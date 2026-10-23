@@ -12,6 +12,7 @@ Obsoletes:  redhat-logos
 Obsoletes:  generic-logos < 17.0.0-5
 Provides:   redhat-logos = %{version}-%{release}
 Provides:   system-logos = %{version}-%{release}
+Provides:   gnome-logos = %{version}-%{release}
 # Fake provide as we don't have generic logos for icewm
 # See: https://src.fedoraproject.org/rpms/fedora-logos/pull-request/13
 Provides:   system-logos-icewm = %{version}-%{release}
@@ -30,20 +31,25 @@ Requires(post): coreutils
 %description
 Logo for Pixel Blue Distro.
 
+%package httpd
+Summary:	Pixel Blue icons and pictures used by httpd
+Provides:	system-logos-httpd = %{version}-%{release}
+BuildArch:	noarch
+Provides:	system-logos(httpd-logo-ng)
+
+%description httpd
+This package contains Pixel Blue icons and pictures used by httpd.
+
 
 %prep
 %setup -qC
 
 %build
-make
 
 %install
 rm -rf %{buildroot}
 
 mkdir -p %{buildroot}%{_datadir}/firstboot/themes/generic
-for i in firstboot/* ; do
-  install -p -m 644 $i %{buildroot}%{_datadir}/firstboot/themes/generic
-done
 
 mkdir -p %{buildroot}%{_datadir}/pixmaps/bootloader
 install -p -m 644 bootloader/fedora.icns %{buildroot}%{_datadir}/pixmaps/bootloader
@@ -60,7 +66,7 @@ for i in pixmaps/* ; do
   install -p -m 644 $i %{buildroot}%{_datadir}/pixmaps
 done
 
-for size in scalable ; do
+for size in 16x16 22x22 24x24 32x32 36x36 48x48 96x96 256x256 ; do
   mkdir -p %{buildroot}%{_datadir}/icons/hicolor/$size/apps
   ln -s ../../../hicolor/$size/apps/pixel-blue-logo-icon.svg icon-panel-menu.svg
   ln -s ../../../hicolor/$size/apps/pixel-blue-logo-icon.svg gnome-main-menu.svg
