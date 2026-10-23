@@ -1,6 +1,6 @@
 Name:		pixel-blue-logos
 Summary:	Pixel Blue-related icons and pictures
-Version:	1.0.0
+Version:	1.0.1
 Release:	1%{?dist}
 URL:		https://github.com/zhchmmx/pixel-blue-logos
 Source0:	%{url}/release/v%{version}/%{name}-%{version}.tar.gz
@@ -170,5 +170,7 @@ hardlink -vv %{buildroot}/usr
 %{_datadir}/pixmaps/poweredby.png
 
 %changelog
+* Sat Oct 24 2026 zhchmmx <zhchmmx@gmail.com> - 1.0.1-1
+- Release 1.0.1.
 * Fri Oct 23 2026 zhchmmx <zhchmmx@gmail.com> - 1.0.0-1
 - Rewrite spec based on Fedora's fedora-logos spec.

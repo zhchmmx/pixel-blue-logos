@@ -100,4 +100,6 @@ jobs:
       - name: Submit build to Copr
         run: |
           copr-cli build "$COPR_PROJECT" ./rpms/SRPMS/*.src.rpm \
+            --chroot fedora-44-x86_64 \
+            --chroot fedora-45-x86_64 \
             --chroot fedora-rawhide-x86_64
