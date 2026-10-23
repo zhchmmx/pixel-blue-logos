@@ -1,0 +1,71 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: fedora:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          dnf install -y rpm-build rpmdevtools hardlink kf6-rpm-macros make
+
+      - name: Setup rpmbuild tree
+        run: rpmdev-setuptree
+
+      - name: Prepare source tarball
+        run: |
+          NAME=$(grep '^Name:' SPECS/generic-logos.spec | awk '{print $2}')
+          VERSION=$(grep '^Version:' SPECS/generic-logos.spec | awk '{print $2}')
+          mkdir -p "/tmp/${NAME}-${VERSION}"
+          cp -a SOURCES/* "/tmp/${NAME}-${VERSION}/"
+          tar czvf "${HOME}/rpmbuild/SOURCES/${NAME}-${VERSION}.tar.gz" -C /tmp "${NAME}-${VERSION}"
+
+      - name: Build RPM
+        run: |
+          cp SPECS/generic-logos.spec "${HOME}/rpmbuild/SPECS/"
+          rpmbuild -ba "${HOME}/rpmbuild/SPECS/generic-logos.spec"
+
+      - name: Collect RPM artifacts
+        run: |
+          mkdir -p ./rpmbuild-output
+          cp -a "${HOME}/rpmbuild/RPMS" ./rpmbuild-output/
+          cp -a "${HOME}/rpmbuild/SRPMS" ./rpmbuild-output/
+
+      - name: Upload RPM artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: rpms
+          path: ./rpmbuild-output/**/*.rpm
+          if-no-files-found: error
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+    steps:
+      - name: Download RPM artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: rpms
+          path: ./rpms
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ./rpms/**/*.rpm
