@@ -69,3 +69,35 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: ./rpms/**/*.rpm
+
+  copr:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    container:
+      image: fedora:latest
+    env:
+      COPR_PROJECT: pixel-blue-logos
+    steps:
+      - name: Install copr-cli
+        run: dnf install -y copr-cli
+
+      - name: Configure Copr API token
+        env:
+          COPR_CONFIG: ${{ secrets.COPR_CONFIG }}
+        run: |
+          mkdir -p "$HOME/.config"
+          printf '%s\n' "$COPR_CONFIG" > "$HOME/.config/copr"
+          chmod 600 "$HOME/.config/copr"
+          copr-cli whoami
+
+      - name: Download SRPM artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: rpms
+          path: ./rpms
+
+      - name: Submit build to Copr
+        run: |
+          copr-cli build "$COPR_PROJECT" ./rpms/SRPMS/*.srpm \
+            --chroot fedora-rawhide-x86_64
