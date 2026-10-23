@@ -1,11 +1,11 @@
 Name:       pixel-blue-logos
 Version:    1.0.0
 Release:    1%{?dist}
-Summary:    Icons and pictures
+Summary:    Pixel Blue icons and pictures
 
 URL:        https://github.com/zhchmmx/pixel-blue-logos
-Source0:    %{url}/release/v%{version}/%{name}-%{version}.tar.gz
-License:    CC BY
+Source0:    %{name}-%{version}.tar.gz
+License:    CC-BY-4.0
 BuildArch:  noarch
 
 Obsoletes:  redhat-logos
@@ -20,13 +20,6 @@ Provides:   system-logos-icewm = %{version}-%{release}
 Conflicts:  fedora-logos
 Conflicts:  anaconda-images <= 10
 Conflicts:  redhat-artwork <= 5.0.5
-BuildRequires: make
-BuildRequires: fdupes
-# For _kf6_datadir macro
-BuildRequires: kf6-rpm-macros
-# For generating the EFI icon
-BuildRequires: libicns-utils
-Requires(post): coreutils
 
 %description
 Logo for Pixel Blue Distro.
@@ -42,77 +35,73 @@ This package contains Pixel Blue icons and pictures used by httpd.
 
 
 %prep
-%setup -qC
+%setup -q
 
 %build
 
 %install
-rm -rf %{buildroot}
-
-mkdir -p %{buildroot}%{_datadir}/firstboot/themes/generic
-
-mkdir -p %{buildroot}%{_datadir}/pixmaps/bootloader
-install -p -m 644 bootloader/fedora.icns %{buildroot}%{_datadir}/pixmaps/bootloader
-install -p -m 644 bootloader/fedora.vol %{buildroot}%{_datadir}/pixmaps/bootloader
-install -p -m 644 bootloader/fedora-media.vol  %{buildroot}%{_datadir}/pixmaps/bootloader
-
-mkdir -p %{buildroot}%{_datadir}/pixmaps/splash
-for i in gnome-splash/* ; do
-  install -p -m 644 $i %{buildroot}%{_datadir}/pixmaps/splash
-done
-
 mkdir -p %{buildroot}%{_datadir}/pixmaps
 for i in pixmaps/* ; do
-  install -p -m 644 $i %{buildroot}%{_datadir}/pixmaps
+  install -p -m 644 "$i" %{buildroot}%{_datadir}/pixmaps
 done
 
+# gnome-control-center hardcodes these Fedora filenames in its About panel.
+# The file names are not trademarks, and Conflicts: fedora-logos guarantees
+# that there is no path collision.
+install -p -m 644 pixmaps/pixel-blue-logo-med.png \
+  %{buildroot}%{_datadir}/pixmaps/fedora_logo_med.png
+install -p -m 644 pixmaps/pixel-blue-whitelogo-med.png \
+  %{buildroot}%{_datadir}/pixmaps/fedora_whitelogo_med.png
+
+# httpd ships a welcome page that expects poweredby.png.  Use a Pixel Blue
+# badge rather than the Fedora wordmark.
+install -p -m 644 pixmaps/pixel-blue-logo-small.png \
+  %{buildroot}%{_datadir}/pixmaps/poweredby.png
+
+# Pixel Blue logo icons
 for size in 16x16 22x22 24x24 32x32 36x36 48x48 96x96 256x256 ; do
   mkdir -p %{buildroot}%{_datadir}/icons/hicolor/$size/apps
-  ln -s ../../../hicolor/$size/apps/pixel-blue-logo-icon.svg icon-panel-menu.svg
-  ln -s ../../../hicolor/$size/apps/pixel-blue-logo-icon.svg gnome-main-menu.svg
-  ln -s ../../../hicolor/$size/apps/pixel-blue-logo-icon.svg kmenu.svg
-  ln -s ../../../hicolor/$size/apps/pixel-blue-logo-icon.svg start-here.svg
-  install -p -m 644 pixmaps/pixel-blue-logo-sprite.svg %{buildroot}%{_datadir}/icons/hicolor/$size/apps/pixel-blue-logo-icon.svg
+  install -p -m 644 icons/hicolor/$size/apps/pixel-blue-logo-icon.png \
+    %{buildroot}%{_datadir}/icons/hicolor/$size/apps
+  ( cd %{buildroot}%{_datadir}/icons/hicolor/$size/apps
+    for i in icon-panel-menu.svg gnome-main-menu.svg kmenu.svg start-here.svg ; do
+      ln -s ../../../hicolor/scalable/apps/pixel-blue-logo-icon.svg $i
+    done
+  )
 done
 
-mkdir -p %{buildroot}%{_kf6_datadir}/oxygen/48x48/apps/
-install -p -m 644 icons/Fedora/48x48/apps/* %{buildroot}%{_kf6_datadir}/oxygen/48x48/apps/
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
+install -p -m 644 icons/hicolor/scalable/apps/pixel-blue-logo-icon.svg \
+  %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
 
-mkdir -p %{buildroot}%{_datadir}/plymouth/themes/charge/
-for i in plymouth/charge/* ; do
-    install -p -m 644 $i %{buildroot}%{_datadir}/plymouth/themes/charge/
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/places
+( cd %{buildroot}%{_datadir}/icons/hicolor/scalable/places
+  ln -s ../apps/pixel-blue-logo-icon.svg start-here.svg
+)
+
+# SVG masters
+mkdir -p %{buildroot}%{_datadir}/pixel-blue/logos
+for i in pixel-blue/logos/*.svg ; do
+  install -p -m 644 "$i" %{buildroot}%{_datadir}/pixel-blue/logos
 done
 
-# File or directory names do not count as trademark infringement
-mkdir -p %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/
-mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
-install -p -m 644 icons/Fedora/48x48/apps/* %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/
-install -p -m 644 icons/Fedora/scalable/apps/* %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
-install -p -m 644 pixmaps/fedora-logo-sprite.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
-install -p -m 644 pixmaps/fedora-logo-sprite.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/start-here.svg
-
-mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/places/
-pushd %{buildroot}%{_datadir}/icons/hicolor/scalable/places/
-ln -s ../apps/start-here.svg .
-popd
-
-(cd anaconda; make DESTDIR=%{buildroot} install)
-
-# save some dup'd icons
-%fdupes %{buildroot}/
+# Plymouth spinner watermark.  The theme itself is provided by plymouth; we
+# only replace the lockup that build.sh validates in the initrd.
+mkdir -p %{buildroot}%{_datadir}/plymouth/themes/spinner
+install -p -m 644 plymouth/themes/spinner/watermark.png \
+  %{buildroot}%{_datadir}/plymouth/themes/spinner/watermark.png
 
 %files
 %license COPYING
 %doc README
-%{_datadir}/firstboot/themes/*
-%{_datadir}/anaconda/boot/*
-%{_datadir}/anaconda/pixmaps/*
 %{_datadir}/icons/hicolor/*/apps/*
 %{_datadir}/icons/hicolor/*/places/*
 %{_datadir}/pixmaps/*
 %exclude %{_datadir}/pixmaps/poweredby.png
-%{_datadir}/plymouth/themes/charge/*
-%{_kf6_datadir}/oxygen/
+%dir %{_datadir}/pixel-blue
+%dir %{_datadir}/pixel-blue/logos
+%{_datadir}/pixel-blue/logos/*
+%{_datadir}/plymouth/themes/spinner/watermark.png
 
 %files httpd
 %license COPYING
