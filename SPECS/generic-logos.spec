@@ -1,11 +1,11 @@
-Name:       generic-logos
-Version:    18.0.0
-Release:    30%{?dist}
+Name:       pixel-blue-logos
+Version:    1.0.0
+Release:    1%{?dist}
 Summary:    Icons and pictures
 
-URL:        https://codeberg.org/fedora-offbrand/generic-logos
-Source0:    %{url}/archive/%{name}-%{version}-1.tar.gz#/%{name}-%{version}.tar.gz
-License:    GPL-2.0-only
+URL:        https://github.com/zhchmmx/pixel-blue-logos
+Source0:    %{url}/release/v%{version}/%{name}-%{version}.tar.gz
+License:    CC BY
 BuildArch:  noarch
 
 Obsoletes:  redhat-logos
@@ -28,23 +28,8 @@ BuildRequires: libicns-utils
 Requires(post): coreutils
 
 %description
-The generic-logos package contains various image files which can be
-used by the bootloader, anaconda, and other related tools. It can
-be used as a replacement for the fedora-logos package, if you are
-unable for any reason to abide by the trademark restrictions on the
-fedora-logos or fedora-remix-logos package.
+Logo for Pixel Blue Distro.
 
-%package httpd
-Summary: Fedora-related icons and pictures used by httpd
-Provides: system-logos-httpd = %{version}-%{release}
-Provides: system-logos(httpd-logo-ng)
-Conflicts: fedora-logos-httpd
-Obsoletes: generic-logos < 17.0.0-5
-BuildArch: noarch
-
-%description httpd
-The generic-logos-httpd package contains image files which can be used by
-httpd.
 
 %prep
 %setup -qC
@@ -77,11 +62,11 @@ done
 
 for size in scalable ; do
   mkdir -p %{buildroot}%{_datadir}/icons/hicolor/$size/apps
-  ln -s ../../../hicolor/$size/apps/fedora-logo-icon.svg icon-panel-menu.svg
-  ln -s ../../../hicolor/$size/apps/fedora-logo-icon.svg gnome-main-menu.svg
-  ln -s ../../../hicolor/$size/apps/fedora-logo-icon.svg kmenu.svg
-  ln -s ../../../hicolor/$size/apps/fedora-logo-icon.svg start-here.svg
-  install -p -m 644 pixmaps/fedora-logo-sprite.svg %{buildroot}%{_datadir}/icons/hicolor/$size/apps/fedora-logo-icon.svg
+  ln -s ../../../hicolor/$size/apps/pixel-blue-logo-icon.svg icon-panel-menu.svg
+  ln -s ../../../hicolor/$size/apps/pixel-blue-logo-icon.svg gnome-main-menu.svg
+  ln -s ../../../hicolor/$size/apps/pixel-blue-logo-icon.svg kmenu.svg
+  ln -s ../../../hicolor/$size/apps/pixel-blue-logo-icon.svg start-here.svg
+  install -p -m 644 pixmaps/pixel-blue-logo-sprite.svg %{buildroot}%{_datadir}/icons/hicolor/$size/apps/pixel-blue-logo-icon.svg
 done
 
 mkdir -p %{buildroot}%{_kf6_datadir}/oxygen/48x48/apps/
