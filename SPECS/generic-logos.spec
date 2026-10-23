@@ -67,7 +67,8 @@ for size in 16x16 22x22 24x24 32x32 36x36 48x48 96x96 256x256 ; do
   )
 done
 mkdir -p $RPM_BUILD_ROOT%{_kf6_datadir}/oxygen/scalable/apps/
-install -p -m 644 icons/hicolor/scalable/apps/org.fedoraproject.AnacondaInstaller.svg $RPM_BUILD_ROOT%{_kf6_datadir}/oxygen/scalable/apps/
+install -p -m 644 icons/hicolor/scalable/apps/pixel-blue-logo-icon.svg \
+  $RPM_BUILD_ROOT%{_kf6_datadir}/oxygen/scalable/apps/org.fedoraproject.AnacondaInstaller.svg
 
 # Pixel Blue favicon
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}
@@ -128,6 +129,8 @@ hardlink -vv %{buildroot}/usr
 %license COPYING
 %doc README
 %config(noreplace) %{_sysconfdir}/favicon.png
+# This lives in the http subpackage
+%exclude %{_datadir}/pixmaps/poweredby.png
 %{_datadir}/icons/hicolor/*/apps/*
 %{_datadir}/icons/hicolor/*/places/*
 %{_datadir}/pixel-blue/logos/*.svg
@@ -135,48 +138,29 @@ hardlink -vv %{buildroot}/usr
 %{_datadir}/anaconda/boot/*
 %{_datadir}/anaconda/pixmaps/*
 %{_datadir}/pixmaps/*
-# This lives in the http subpackage
-%exclude %{_datadir}/pixmaps/poweredby.png
-%{_datadir}/icons/hicolor/*/apps/*
-%{_datadir}/icons/hicolor/*/places/*
-%{_datadir}/icons/hicolor/symbolic/apps/*
 %{_kf6_datadir}/oxygen/
-%{_datadir}/anaconda/pixmaps/*
-%{_datadir}/anaconda/boot/splash.lss
-%{_datadir}/anaconda/boot/syslinux-splash.png
-%{_datadir}/anaconda/boot/splash.png
 # we multi-own these directories, so as not to require the packages that
 # provide them, thereby dragging in excess dependencies.
 %dir %{_datadir}/icons/hicolor/
 %dir %{_datadir}/icons/hicolor/16x16/
 %dir %{_datadir}/icons/hicolor/16x16/apps/
-%dir %{_datadir}/icons/hicolor/16x16/places/
 %dir %{_datadir}/icons/hicolor/22x22/
 %dir %{_datadir}/icons/hicolor/22x22/apps/
-%dir %{_datadir}/icons/hicolor/22x22/places/
 %dir %{_datadir}/icons/hicolor/24x24/
 %dir %{_datadir}/icons/hicolor/24x24/apps/
-%dir %{_datadir}/icons/hicolor/24x24/places/
 %dir %{_datadir}/icons/hicolor/32x32/
 %dir %{_datadir}/icons/hicolor/32x32/apps/
-%dir %{_datadir}/icons/hicolor/32x32/places/
 %dir %{_datadir}/icons/hicolor/36x36/
 %dir %{_datadir}/icons/hicolor/36x36/apps/
-%dir %{_datadir}/icons/hicolor/36x36/places/
 %dir %{_datadir}/icons/hicolor/48x48/
 %dir %{_datadir}/icons/hicolor/48x48/apps/
-%dir %{_datadir}/icons/hicolor/48x48/places/
 %dir %{_datadir}/icons/hicolor/96x96/
 %dir %{_datadir}/icons/hicolor/96x96/apps/
-%dir %{_datadir}/icons/hicolor/96x96/places/
 %dir %{_datadir}/icons/hicolor/256x256/
 %dir %{_datadir}/icons/hicolor/256x256/apps/
-%dir %{_datadir}/icons/hicolor/256x256/places/
 %dir %{_datadir}/icons/hicolor/scalable/
 %dir %{_datadir}/icons/hicolor/scalable/apps/
 %dir %{_datadir}/icons/hicolor/scalable/places/
-%dir %{_datadir}/icons/hicolor/symbolic/
-%dir %{_datadir}/icons/hicolor/symbolic/apps/
 %dir %{_datadir}/anaconda
 %dir %{_datadir}/anaconda/boot/
 %dir %{_datadir}/anaconda/pixmaps/
