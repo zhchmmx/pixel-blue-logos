@@ -1,6 +1,6 @@
 Name:		pixel-blue-logos
 Summary:	Pixel Blue-related icons and pictures
-Version:	1.0.1
+Version:	1.0.2
 Release:	1%{?dist}
 URL:		https://github.com/zhchmmx/pixel-blue-logos
 Source0:	%{url}/release/v%{version}/%{name}-%{version}.tar.gz
@@ -50,6 +50,14 @@ install -p -m 644 pixmaps/pixel-blue-logo-med.png \
 install -p -m 644 pixmaps/pixel-blue-whitelogo-med.png \
   %{buildroot}%{_datadir}/pixmaps/fedora_whitelogo_med.png
 
+# gdm's login screen logo defaults to the hardcoded
+# /usr/share/pixmaps/fedora-gdm-logo.png (see gdm's
+# org.gnome.login-screen.gschema.override).  Install the Pixel Blue lockup
+# under that name as well, otherwise the greeter has no logo at all now that
+# this package obsoletes fedora-logos.
+install -p -m 644 pixmaps/pixel-blue-gdm-logo.png \
+  %{buildroot}%{_datadir}/pixmaps/fedora-gdm-logo.png
+
 # httpd ships a welcome page that expects poweredby.png.  Use a Pixel Blue
 # badge rather than the Fedora wordmark.
 install -p -m 644 pixmaps/pixel-blue-logo-small.png \
@@ -94,7 +102,11 @@ for i in pixel-blue/logos/*.svg ; do
 done
 
 # Plymouth spinner watermark.  The theme itself is provided by plymouth; we
-# only replace the lockup that build.sh validates in the initrd.
+# only replace the lockup that build.sh validates in the initrd.  Keep it at
+# the same 43 px height as fedora-gdm-logo.png (the size the old Fedora
+# watermark used): plymouth draws the image at its native size, so a taller
+# lockup makes the boot splash look oversized compared with the greeter and
+# shutdown screens.
 mkdir -p %{buildroot}%{_datadir}/plymouth/themes/spinner
 install -p -m 644 plymouth/themes/spinner/watermark.png \
   %{buildroot}%{_datadir}/plymouth/themes/spinner/watermark.png
@@ -170,6 +182,8 @@ hardlink -vv %{buildroot}/usr
 %{_datadir}/pixmaps/poweredby.png
 
 %changelog
+* Sat Oct 24 2026 zhchmmx <zhchmmx@gmail.com> - 1.0.2-1
+- Release 1.0.2
 * Sat Oct 24 2026 zhchmmx <zhchmmx@gmail.com> - 1.0.1-1
 - Release 1.0.1.
 * Fri Oct 23 2026 zhchmmx <zhchmmx@gmail.com> - 1.0.0-1
