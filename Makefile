@@ -1,11 +1,13 @@
 NAME    := pixel-blue-logos
-VERSION := 1.0.1
+VERSION := 1.0.2
 TARBALL := $(NAME)-$(VERSION).tar.gz
 
 .PHONY: sources srpm rpm clean
 
-# Build the upstream source tarball from the SOURCES/ payload and refresh the
-# dist-git sources file with its SHA512.
+# Build the upstream source tarball from the SOURCES/ payload and write its
+# SHA512 to the dist-git style `sources` file.  That file is generated only
+# for local/dist-git use and is git-ignored (it collides with SOURCES/ on
+# case-insensitive filesystems).
 sources:
 	rm -rf $(NAME)-$(VERSION) $(TARBALL)
 	mkdir -p $(NAME)-$(VERSION)
